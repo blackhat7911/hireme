@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'djongo',
+    'location.apps.LocationConfig',
+    'seeker.apps.SeekerConfig',
+    'worker.apps.WorkerConfig'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +81,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+        'NAME': 'hireme',
+        'HOST': 'localhost',
+        'PORT': 27017
     }
 }
 
