@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'djongo',
     'location.apps.LocationConfig',
     'seeker.apps.SeekerConfig',
-    'worker.apps.WorkerConfig'
+    'worker.apps.WorkerConfig',
+    'phone_auth',
 ]
 
 MIDDLEWARE = [
@@ -81,10 +82,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'hireme',
-        'HOST': 'localhost',
-        'PORT': 27017
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -126,3 +125,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `django-phone-auth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `django-phone-auth` specific authentication methods, such as login by phone/email/username.
+    'phone_auth.backend.CustomAuthBackend',
+]
+
+AUTHENTICATION_METHODS = {'phone', 'email', 'username'}
