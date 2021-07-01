@@ -21,4 +21,5 @@ urlpatterns = [
     path('locations/', include('location.urls')),
     path('seeker/', include('seeker.urls')),
     path('worker/', include('worker.urls')),
+    path('accounts/', include('phone_auth.urls')),
 ]

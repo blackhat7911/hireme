@@ -1,8 +1,9 @@
 from djongo import models
 from location.models import Location
+from django.contrib.auth.models import User
 
 class Worker(models.Model):
-    username = models.CharField(max_length=255, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     full_name = models.CharField(max_length=255)
     phoneNumber = models.CharField(max_length=255)
     dob = models.DateField()
@@ -11,4 +12,4 @@ class Worker(models.Model):
     joined_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.username
+        return self.user.username
