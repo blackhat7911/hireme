@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'seeker.apps.SeekerConfig',
     'worker.apps.WorkerConfig',
     'phone_auth',
+    'rest_framework.authtoken',
+    'phone_verify'
 ]
 
 MIDDLEWARE = [
@@ -112,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -136,3 +138,17 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 AUTHENTICATION_METHODS = {'phone', 'email', 'username'}
+
+PHONE_VERIFICATION = {
+    'BACKEND': 'phone_verify.backends.twilio.TwilioBackend',
+    'TWILIO_SANDBOX_TOKEN':'123456',
+    'OPTIONS': {
+        'SID': 'fake',
+        'SECRET': 'fake',
+        'FROM': '+14755292729'
+    },
+    'TOKEN_LENGTH': 6,
+    'MESSAGE': 'Welcome to {app}! Please use security code {otp} to proceed.',
+    'APP_NAME': 'Phone Verify',
+    'OTP_EXPIRATION_TIME': 3600  # In seconds only
+}
