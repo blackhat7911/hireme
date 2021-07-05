@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
 
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: whiteColor,
         elevation: 0,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
           horizontal: 15.0,
           vertical: 15.0
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   print('Entry fields cannot be empty');
                 }
                 else{
-                  print(usernameController.text+" "+passwordController.text);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
                 }
               }
             ),
