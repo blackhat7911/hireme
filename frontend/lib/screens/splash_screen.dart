@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
                       color: primaryColor
                     ),
                     child: Text(
-                      "Login",
+                      "Register",
                       style: TextStyle(
                         color: whiteColor,
                         fontWeight: FontWeight.bold,
@@ -42,7 +42,7 @@ class SplashScreen extends StatelessWidget {
                       color: primaryColor
                     ),
                     child: Text(
-                      "Register",
+                      "Login",
                       style: TextStyle(
                         color: whiteColor,
                         fontWeight: FontWeight.bold,

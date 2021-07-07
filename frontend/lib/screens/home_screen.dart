@@ -11,7 +11,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   final searchText = new TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

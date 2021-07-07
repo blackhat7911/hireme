@@ -65,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 20.0),
             CustomButton(
               title: "Sign In",
+              textColor: whiteColor,
+              buttonColor: primaryColor,
               onTap: (){
                 if (usernameController.text.length == 0 || passwordController.text.length==0){
                   print('Entry fields cannot be empty');
