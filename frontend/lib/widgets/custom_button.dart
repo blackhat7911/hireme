@@ -5,13 +5,15 @@ class CustomButton extends StatelessWidget {
   final String? title;
   final VoidCallback? onTap;
   final Color? buttonColor, textColor;
+  final double? width;
 
   const CustomButton({
     Key? key, 
     this.title, 
     this.onTap, 
     this.buttonColor, 
-    this.textColor,
+    this.textColor, 
+    this.width,
   }) : super(key: key);
 
   @override
@@ -19,8 +21,11 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap!,
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 40.0,
+        width: width,
+        padding: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 10.0
+        ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),

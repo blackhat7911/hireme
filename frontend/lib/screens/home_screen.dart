@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/widgets/appbar.dart';
 import 'package:frontend/widgets/drawer.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   final searchText = new TextEditingController();
+  static const LatLng _center = const LatLng(45.521563, -122.677433);
   
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
             MyAppbar(
               size: size, 
               searchText: searchText,
+            ),
+            GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: _center,
+                zoom: 11.5
+              )
             ),
           ],
         ),
