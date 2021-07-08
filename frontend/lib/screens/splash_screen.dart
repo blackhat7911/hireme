@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/screens/login_screen.dart';
+import 'package:frontend/widgets/custom_button.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({ Key? key }) : super(key: key);
@@ -9,51 +10,43 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: (){},
-                  child: Container(
-                    width: (size.width)/2,
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: primaryColor
-                    ),
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: whiteColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Spacer(),
+            Center(
+              child: Text(
+                "HireMe",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 32.0
                 ),
-                GestureDetector(
+              ),
+            ),
+            Spacer(),
+            Row(
+              children: [
+                CustomButton(
+                  title: "Login",
+                  width: size.width * 0.5,
+                  buttonColor: primaryColor,
+                  textColor: whiteColor,
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
-                  child: Container(
-                    width: (size.width)/2,
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: primaryColor
-                    ),
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                        color: whiteColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                ),
+                SizedBox(),
+                CustomButton(
+                  title: "Register",
+                  width: size.width * 0.5,
+                  buttonColor: inputBoxColor,
+                  textColor: primaryColor,
+                  onTap: (){},
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

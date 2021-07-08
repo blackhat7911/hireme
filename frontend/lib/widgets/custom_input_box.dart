@@ -3,7 +3,7 @@ import 'package:frontend/constants.dart';
 
 class CustomInputBox extends StatelessWidget {
 
-  final String? title, hint;
+  final String? title, hint, error;
   final IconData? icon, suffixIcon;
   final bool? isInvisible;
   final TextEditingController? controller;
@@ -16,6 +16,7 @@ class CustomInputBox extends StatelessWidget {
     this.suffixIcon, 
     this.isInvisible, 
     this.controller,
+    this.error
   }) : super(key: key);
 
   @override
@@ -47,6 +48,7 @@ class CustomInputBox extends StatelessWidget {
                 prefixIcon: Icon(icon),
                 suffixIcon: Icon(suffixIcon),
                 hintText: hint!,
+                errorText: error,
                 border: InputBorder.none,
               ),
             ),
