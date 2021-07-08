@@ -14,6 +14,7 @@ class MyAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: size.width,
       padding: EdgeInsets.symmetric(
         horizontal: 8.0,
         vertical: 2.0
@@ -36,9 +37,9 @@ class MyAppbar extends StatelessWidget {
             child: TextFormField(
               controller: searchText,
               decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
                 hintText: "Search Here...",
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 10.0)
               ),
             ),
           ),
