@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-
   final String? title;
   final VoidCallback? onTap;
   final Color? buttonColor, textColor;
@@ -15,7 +14,6 @@ class CustomButton extends StatelessWidget {
     this.textColor, 
     this.width,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -44,4 +42,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
