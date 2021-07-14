@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -48,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               icon: Icons.lock,
               suffixIcon: Icons.visibility_off,
               controller: password1Controller,
+              size: size,
             ),
             SizedBox(
               height: 20.0,
@@ -58,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               isInvisible: true,
               icon: Icons.lock,
               suffixIcon: Icons.visibility_off,
+              size: size,
               controller: password2Controller,
             ),
             SizedBox(height: 20.0),
