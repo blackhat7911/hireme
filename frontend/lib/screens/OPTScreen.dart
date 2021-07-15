@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
-import 'package:frontend/widgets/custom_input_box.dart';
 import 'package:frontend/widgets/number_input_box.dart';
 import 'package:frontend/constants.dart';
 
@@ -73,13 +73,9 @@ class PhoneVerifyScreen extends StatelessWidget {
                 width: size.width,
                 buttonColor: primaryColor,
                 textColor: whiteColor,
-                // size: size,
-                // radius: 10.0,
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => StudentProfileSetup()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
               ),
               SizedBox(

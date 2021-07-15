@@ -16,15 +16,24 @@ class _PhoneScreenState extends State<PhoneScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Phone Auth'),
-        backgroundColor: primaryColor,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: blackColor,
+          ),
+          onPressed: () {},
+        ),
+        elevation: 0,
+        backgroundColor: whiteColor,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(children: [
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: 15.0,
+          vertical: 15.0,
+        ),
+        child: Column(
+          children: [
             Container(
-              margin: EdgeInsets.only(top: 60),
               child: Center(
                 child: Text(
                   'Enter Your Phone Number',
@@ -32,7 +41,9 @@ class _PhoneScreenState extends State<PhoneScreen> {
                 ),
               ),
             ),
-
+            SizedBox(
+              height: 20.0,
+            ),
             CustomInputBox(
               size: size,
               title: "",
@@ -40,33 +51,23 @@ class _PhoneScreenState extends State<PhoneScreen> {
               isInvisible: false,
               icon: Icons.person,
               suffixIcon: null,
-            )
-            // Container(
-            //   margin: EdgeInsets.only(top: 40, right: 10, left: 10),
-            //   child: TextField(
-            //     decoration: InputDecoration(
-            //       hintText: 'Phone Number',
-            //       prefix: Padding(
-            //         padding: EdgeInsets.all(4),
-            //         child: Text('+977'),
-            //       ),
-            //     ),
-            //     maxLength: 10,
-            //     keyboardType: TextInputType.number,
-            //     controller: _controller,
-            //   ),
-            // )
-          ]),
-          CustomButton(
-            title: "Next",
-            buttonColor: primaryColor,
-            textColor: whiteColor,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PhoneVerifyScreen()));
-            },
-          )
-        ],
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            CustomButton(
+              title: "Continue",
+              textColor: whiteColor,
+              buttonColor: primaryColor,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PhoneVerifyScreen()));
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
