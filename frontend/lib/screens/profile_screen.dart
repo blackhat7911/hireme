@@ -1,21 +1,20 @@
 import 'dart:html';
-
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import '../constants.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class ProfileSetUpScreen extends StatefulWidget {
+  const ProfileSetUpScreen({Key? key}) : super(key: key);
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _ProfileSetUpScreenState createState() => _ProfileSetUpScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
   File? _image;
 
   final fullnameController = new TextEditingController();
@@ -28,17 +27,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String dateValueChange = '';
   String saveDate = '';
 
-  Future<void> getImage() async {
-    PickedFile? image =
-        await ImagePicker().getImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      _image = File(image.readAsBytes(), image.path);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -71,15 +62,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: new SizedBox(
                       width: 180.0,
                       height: 180.0,
-                      child: (_image != null)
-                          ? Image.file(
-                              _image,
-                              fit: BoxFit.fill,
-                            )
-                          : Image.network(
-                              "https://www.shutterstock.com/image-vector/user-icon-trendy-flat-style-isolated-1467725033?irclickid=3ikVrY1WpxyLUvFwUx0Mo3QEUkBym0RtP2ZaTc0&irgwc=1&utm_medium=Affiliate&utm_campaign=Icons8&utm_source=2052558&utm_term=&c3ch=Affiliate&c3nid=IR-2052558",
-                              fit: BoxFit.fill,
-                            ),
                     ),
                   ),
                 ),
@@ -88,12 +70,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(top: 60.0),
                 child: IconButton(
                   icon: Icon(
-                    FontAwesomeIcons.camera,
+                    Icons.camera,
                     size: 30.0,
                   ),
-                  onPressed: () {
-                    getImage();
-                  },
+                  onPressed: () {},
                 ),
               )
             ],
@@ -102,6 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 20.0,
           ),
           CustomInputBox(
+            size: size,
             title: "Fullname",
             hint: "Fullname",
             isInvisible: false,
@@ -112,42 +93,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             height: 20.0,
           ),
+          Container(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: CustomInputBox(
+                    size: size,
+                    title: "Date Of Birth",
+                    hint: "Date Of Birth",
+                    isInvisible: false,
+                    icon: Icons.person,
+                    suffixIcon: null,
+                    controller: addressController,
+                  ),
+                ),
+                Container(
+                  child: IconButton(
+                    onPressed: () {
+                      DatePicker.showDatePicker(
+                        context,
+                        showTitleActions: true,
+                        maxTime: DateTime(2021, 7, 15),
+                        minTime: DateTime(1970, 7, 15),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.calendar_today,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
           CustomInputBox(
+            size: size,
             title: "Address",
             hint: "Address",
             isInvisible: false,
-            icon: Icons.person,
+            icon: Icons.location_on,
             suffixIcon: null,
             controller: addressController,
           ),
           SizedBox(
             height: 20.0,
           ),
-          DateTimePicker(
-            type: DateTimePickerType.date,
-            //dateMask: 'yyyy/MM/dd',
-            controller: dateController,
-            //initialValue: _initialValue,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
-            icon: Icon(Icons.event),
-            dateLabelText: 'Date',
-            locale: Locale('pt', 'BR'),
-            onChanged: (val) => setState(() => dateChange = val),
-            validator: (val) {
-              setState(() => dateValueChange = val ?? '');
-              return null;
-            },
-            onSaved: (val) => setState(() => saveDate = val ?? ''),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
           CustomInputBox(
+            size: size,
             title: "Occupation",
             hint: "Occupation",
             isInvisible: false,
-            icon: Icons.person,
+            icon: Icons.work,
             suffixIcon: null,
             controller: occupationController,
           ),
