@@ -1,11 +1,11 @@
-import 'dart:convert';
+// import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/screens/splash_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -39,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -68,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20.0,
             ),
             CustomInputBox(
+              size: size,
               title: "Username",
               hint: "Username",
               isInvisible: false,
@@ -79,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20.0,
             ),
             CustomInputBox(
+              size: size,
               title: "Password",
               hint: "Password",
               isInvisible: true,

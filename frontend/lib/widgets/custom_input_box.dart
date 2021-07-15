@@ -2,22 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 
 class CustomInputBox extends StatelessWidget {
-
   final String? title, hint, error;
   final IconData? icon, suffixIcon;
   final bool? isInvisible;
   final TextEditingController? controller;
 
-  const CustomInputBox({
-    Key? key, 
-    this.title, 
-    this.hint, 
-    this.icon, 
-    this.suffixIcon, 
-    this.isInvisible, 
-    this.controller,
-    this.error
-  }) : super(key: key);
+  const CustomInputBox(
+      {Key? key,
+      required this.size,
+      this.width,
+      this.onTap,
+      this.radius,
+      this.hint,
+      this.icon,
+      this.suffixIcon,
+      this.isInvisible,
+      this.controller,
+      this.error,
+      this.title})
+      : super(key: key);
+  final Size size;
+  final double? width, radius;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +33,11 @@ class CustomInputBox extends StatelessWidget {
         children: [
           Text(
             title!,
-            style: TextStyle(
-              fontSize: 18.0
-            ),
+            style: TextStyle(fontSize: 18.0),
           ),
           SizedBox(height: 10.0),
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
               color: inputBoxColor,
