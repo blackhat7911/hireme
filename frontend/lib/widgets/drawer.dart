@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
+  final String? fullname, imageUrl;
   const MyDrawer({
     Key? key,
+    this.imageUrl,
+    this.fullname,
   }) : super(key: key);
 
   @override
@@ -20,14 +23,14 @@ class MyDrawer extends StatelessWidget {
                 CircleAvatar(
                   radius: 35,
                   backgroundImage: NetworkImage(
-                    "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                    imageUrl!,
                   ),
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
                 Text(
-                  "John Doe",
+                  fullname!,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22.0,

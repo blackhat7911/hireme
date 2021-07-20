@@ -5,11 +5,13 @@ class MyAppbar extends StatelessWidget {
   const MyAppbar({
     Key? key,
     required this.size,
-    required this.searchText,
+    required this.searchText, 
+    this.imageUrl,
   }) : super(key: key);
 
   final Size size;
   final TextEditingController searchText;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +50,10 @@ class MyAppbar extends StatelessWidget {
             width: 5.0,
           ),
           CircleAvatar(
-            
-              backgroundImage: NetworkImage(
-                  "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")),
+            backgroundImage: NetworkImage(
+              imageUrl!,
+            ),
+          ),
         ],
       ),
     );

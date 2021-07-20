@@ -15,13 +15,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchText = new TextEditingController();
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
-
+  static const LatLng _center = const LatLng(27.7172, 85.3240);
+  final String imageUrl =
+      "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  final String fullname = "John Doe";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: MyDrawer(
+        fullname: fullname,
+        imageUrl: imageUrl,
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -38,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MyAppbar(
               size: size,
               searchText: searchText,
+              imageUrl: imageUrl,
             ),
           ],
         ),

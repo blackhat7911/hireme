@@ -7,11 +7,11 @@ class CustomButton extends StatelessWidget {
   final double? width;
 
   const CustomButton({
-    Key? key, 
-    this.title, 
-    this.onTap, 
-    this.buttonColor, 
-    this.textColor, 
+    Key? key,
+    this.title,
+    this.onTap,
+    this.buttonColor,
+    this.textColor,
     this.width,
   }) : super(key: key);
   @override
@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
         width: width,
         padding: EdgeInsets.symmetric(
           horizontal: 10.0,
-          vertical: 10.0
+          vertical: 15.0,
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(

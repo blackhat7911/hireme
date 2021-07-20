@@ -25,8 +25,7 @@ SECRET_KEY = 'geyf3eyedfpt4aiaadsy*4j*dytls%%icjsm@$!gvzib-df%j$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['10.2.1.9', '127.0.0.1']
 
 # Application definition
 
@@ -40,12 +39,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'djongo',
-    'location.apps.LocationConfig',
-    'seeker.apps.SeekerConfig',
-    'worker.apps.WorkerConfig',
-    'phone_auth',
     'rest_framework.authtoken',
-    'phone_verify'
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -127,28 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
-AUTHENTICATION_BACKENDS = [
-
-    # Needed to login by username in Django admin, regardless of `django-phone-auth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `django-phone-auth` specific authentication methods, such as login by phone/email/username.
-    'phone_auth.backend.CustomAuthBackend',
-]
-
-AUTHENTICATION_METHODS = {'phone', 'email', 'username'}
-
-PHONE_VERIFICATION = {
-    'BACKEND': 'phone_verify.backends.twilio.TwilioBackend',
-    'TWILIO_SANDBOX_TOKEN':'123456',
-    'OPTIONS': {
-        'SID': 'fake',
-        'SECRET': 'fake',
-        'FROM': '+14755292729'
-    },
-    'TOKEN_LENGTH': 6,
-    'MESSAGE': 'Welcome to {app}! Please use security code {otp} to proceed.',
-    'APP_NAME': 'Phone Verify',
-    'OTP_EXPIRATION_TIME': 3600  # In seconds only
-}
+# djongo gridfsstorage
+BASE_URL = ""
+UPLOADED_FILES_USE_URL = True

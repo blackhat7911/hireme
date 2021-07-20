@@ -1,9 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
-// import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import '../constants.dart';
 
 class ProfileSetUpScreen extends StatefulWidget {
@@ -14,17 +15,20 @@ class ProfileSetUpScreen extends StatefulWidget {
 }
 
 class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
-  // File? _image;
+  File? _pickedImage;
 
+  final _imagePicker = ImagePicker();
   final fullnameController = new TextEditingController();
   final addressController = new TextEditingController();
   final dateController = new TextEditingController();
   final occupationController = new TextEditingController();
 
-//String _initialValue = '';
-  String dateChange = '';
-  String dateValueChange = '';
-  String saveDate = '';
+  Future pickPhoto(ImageSource source) async {
+    final _pickImage = await _imagePicker.pickImage(source: source);
+    setState(() {
+      _pickedImage = File(_pickImage!.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,13 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                 context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
-        title: Text('Setup Your Profile'),
+        centerTitle: true,
+        title: Text(
+          'Setup Your Profile',
+          style: TextStyle(
+            color: blackColor,
+          ),
+        ),
         backgroundColor: whiteColor,
         elevation: 0,
       ),
@@ -51,9 +61,115 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             SizedBox(
               height: 20.0,
             ),
-            CircleAvatar(
-              radius: 60,
-              backgroundColor: Color(0xff476cfb),
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return new Container(
+                      height: 200,
+                      padding: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      )),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Select One",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        pickPhoto(ImageSource.camera);
+                                      },
+                                      icon: Icon(
+                                        Icons.camera_alt,
+                                      ),
+                                      iconSize: 50.0,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Container(
+                                      width: size.width,
+                                      alignment: Alignment.center,
+                                      child: Text("Camera"),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        pickPhoto(ImageSource.gallery);
+                                      },
+                                      icon: Icon(
+                                        Icons.photo_album_outlined,
+                                      ),
+                                      iconSize: 50.0,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Container(
+                                      width: size.width,
+                                      alignment: Alignment.center,
+                                      child: Text("Gallery"),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+              child: (_pickedImage == null)
+                  ? CircleAvatar(
+                      radius: 60,
+                      backgroundColor: inputBoxColor,
+                      child: _pickedImage == null
+                          ? Icon(
+                              Icons.person,
+                              size: 60,
+                              color: blackColor,
+                            )
+                          : Image.file(
+                              File(_pickedImage!.path),
+                              fit: BoxFit.contain,
+                            ),
+                    )
+                  : CircleAvatar(
+                      radius: 60,
+                      backgroundColor: inputBoxColor,
+                      backgroundImage: FileImage(
+                        File(_pickedImage!.path),
+                      ),
+                    ),
             ),
             SizedBox(
               height: 20.0,
@@ -80,20 +196,32 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                       title: "Date Of Birth",
                       hint: "Date Of Birth",
                       isInvisible: false,
-                      icon: Icons.person,
+                      icon: Icons.calendar_today,
                       suffixIcon: null,
-                      controller: addressController,
+                      controller: dateController,
                     ),
                   ),
                   Container(
                     child: IconButton(
                       onPressed: () {
-                        // DatePicker.showDatePicker(
-                        //   context,
-                        //   showTitleActions: true,
-                        //   maxTime: DateTime(2021, 7, 15),
-                        //   minTime: DateTime(1970, 7, 15),
-                        // );
+                        DatePicker.showDatePicker(
+                          context,
+                          showTitleActions: true,
+                          maxTime: DateTime(2021, 7, 15),
+                          minTime: DateTime(1970, 7, 15),
+                          theme: DatePickerTheme(
+                            backgroundColor: whiteColor,
+                            itemStyle: TextStyle(
+                              color: blackColor,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          onChanged: (date) {
+                            print('change $date');
+                          },
+                          onConfirm: (date) {},
+                          currentTime: DateTime.now(),
+                        );
                       },
                       icon: Icon(
                         Icons.calendar_today,

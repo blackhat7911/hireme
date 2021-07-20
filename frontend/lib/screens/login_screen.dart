@@ -1,11 +1,9 @@
-// import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/screens/splash_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
-// import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,25 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final usernameController = new TextEditingController();
   final passwordController = new TextEditingController();
-
-  // loginUser(String username, String password) async {
-  //   Map jsonResponse;
-  //   var url = Uri.parse("http://192.168.3.4:8000/api-token-auth/");
-  //   var response = await http.post(url,
-  //     body: {
-  //       "username": username,
-  //       "password": password
-  //     }
-  //   );
-
-  //   if(response.statusCode == 200){
-  //     jsonResponse = json.decode(response.body);
-  //     Navigator.of(this.context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => HomeScreen()), (Route<dynamic> route) => false);
-  //   }
-  //   else{
-  //     print(response.body);
-  //   }
-  // }
+  bool isChecked           = false;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               "Login Here",
@@ -84,21 +64,47 @@ class _LoginScreenState extends State<LoginScreen> {
               size: size,
               title: "Password",
               hint: "Password",
-              isInvisible: true,
+              isInvisible: isChecked == false ? true : false,
               icon: Icons.lock,
-              suffixIcon: Icons.visibility_off,
+              suffixIcon:
+                  isChecked == false ? Icons.visibility_off : Icons.visibility,
               controller: passwordController,
             ),
             SizedBox(height: 20.0),
+            Container(
+              child: Row(
+                children: [
+                  Checkbox(
+                    activeColor: primaryColor,
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = value!;
+                      });
+                    },
+                  ),
+                  Text("Show Password")
+                ],
+              ),
+            ),
+            SizedBox(height: 20.0),
             CustomButton(
-                title: "Sign In",
-                textColor: whiteColor,
-                buttonColor: primaryColor,
-                onTap: () {
-                  // loginUser(usernameController.text, passwordController.text);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                }),
+              title: "Sign In",
+              textColor: whiteColor,
+              buttonColor: primaryColor,
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
+              },
+            ),
+            SizedBox(height: 20.0),
+            Text(
+              "Forgot Password?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: blackColor,
+              ),
+            ),
           ],
         ),
       ),
