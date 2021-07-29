@@ -1,10 +1,10 @@
 // import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/constants.dart';
-import 'package:frontend/screens/profile_screen.dart';
+import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/state/mobile_verification_state.dart';
 import 'package:frontend/widgets/custom_button.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -20,53 +20,53 @@ class _PhoneScreenState extends State<PhoneScreen> {
   bool showLoading = false;
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _optController = TextEditingController();
-  String initialCountry = 'NPL';
-  // PhoneNumber _phoneNumber = PhoneNumber(isoCode: 'NPL');
+  String initialCountry = 'NP';
+  PhoneNumber _phoneNumber = PhoneNumber(isoCode: 'NP');
   late var currentState = MobileVerificationState.FORM_STATE;
 
-  // getPhoneNumber(String phoneNumber) async {
-  //   PhoneNumber number =
-  //       await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'NPL');
+  getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'NP');
 
-  //   setState(() {
-  //     this._phoneNumber = number;
-  //   });
-  //   print(number);
-  //   return number;
-  // }
-
-  Future<void> signInWithPhoneNumber(
-      PhoneAuthCredential _authCredintail) async {
     setState(() {
-      showLoading = true;
+      this._phoneNumber = number;
     });
-    try {
-      final _phoneCredintail =
-          await _auth.signInWithCredential(_authCredintail);
-      setState(() {
-        showLoading = false;
-      });
-      if (_phoneCredintail.user != null) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ProfileSetUpScreen()));
-      }
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        showLoading = false;
-      });
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text("${e.message}")));
-    }
+    print(number);
+    return number;
+  }
+
+  phoneNumberVerify() async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: _phoneController.text,
+      timeout: const Duration(seconds: 60),
+      codeAutoRetrievalTimeout: (verificationId) {},
+      codeSent: (String verificationId, int? forceResendingToken) {},
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
+      verificationFailed: (FirebaseAuthException error) {},
+    );
+  }
+
+  Future<void> signInWithPhoneNumber() async {
+    await _auth.signInWithPhoneNumber(getPhoneNumber(_phoneController.text));
   }
 
   // send verification code firebase flutter
   Future<void> sendVerificationCode() async {
     await _auth.verifyPhoneNumber(
-      phoneNumber: await (_phoneController.text),
-      verificationCompleted: (phoneAuthCredential) async {},
-      verificationFailed: (verificationFailed) async {},
+      phoneNumber: getPhoneNumber(_phoneController.text),
+      verificationCompleted: (phoneAuthCredential) async {
+        await _auth.signInWithCredential(phoneAuthCredential);
+      },
+      verificationFailed: (verificationFailed) async {
+        if (verificationFailed.code == "invalid-phone-number") {
+          print('Provided phone number is not valid');
+        }
+      },
       codeSent: (verificationId, resendingToken) async {
         print('verification code sent');
+        setState(() {
+          currentState = MobileVerificationState.OTP_STATE;
+        });
       },
       codeAutoRetrievalTimeout: (verificationId) async {},
     );
@@ -108,19 +108,16 @@ class _PhoneScreenState extends State<PhoneScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  // CountryCodePicker(
-                  //   initialSelection: 'NP',
-                  //   favorite: ['+977', 'NP'],
-                  //   showCountryOnly: false,
-                  //   showOnlyCountryWhenClosed: false,
-                  //   alignLeft: true,
-                  //   onChanged: (CountryCode code) {
-                  //     print('object ${code}');
-                  //   },
-                  //   flagDecoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(7),
-                  //   ),
-                  // ),
+                  InternationalPhoneNumberInput(
+                    onInputChanged: (PhoneNumber number) {
+                      print(number.phoneNumber);
+                    },
+                    initialValue: _phoneNumber,
+                    textFieldController: _phoneController,
+                    keyboardType: TextInputType.number,
+                    inputBorder: OutlineInputBorder(),
+                    isEnabled: true,
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),
@@ -129,7 +126,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                     textColor: whiteColor,
                     buttonColor: primaryColor,
                     onTap: () {
-                      // sendVerificationCode();
+                      sendVerificationCode();
                       setState(() {
                         currentState = MobileVerificationState.OTP_STATE;
                       });
@@ -147,7 +144,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Verify Your Email",
+                        "Verify Your Code",
                         style: TextStyle(
                           color: blackColor,
                           fontSize: 32.0,
@@ -157,7 +154,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                         height: 10.0,
                       ),
                       Text(
-                        "We've sent 5-digit code to your email. Please check and verify your email here.",
+                        "We've sent 6-digit code to your phone. Please check and verify your phone here.",
                         style: TextStyle(
                           color: blackColor,
                           fontSize: 16.0,
@@ -169,9 +166,9 @@ class _PhoneScreenState extends State<PhoneScreen> {
                       Container(
                         alignment: Alignment.center,
                         child: OTPTextField(
-                          length: 5,
+                          length: 6,
                           width: size.width,
-                          fieldWidth: 60,
+                          fieldWidth: 50,
                           style: TextStyle(
                             fontSize: 16.0,
                           ),
@@ -189,13 +186,8 @@ class _PhoneScreenState extends State<PhoneScreen> {
                         width: size.width,
                         buttonColor: primaryColor,
                         textColor: whiteColor,
-                        onTap: () async {
-                          PhoneAuthCredential _authCredintial =
-                              await PhoneAuthProvider.credential(
-                            verificationId: verificationId,
-                            smsCode: _optController.text,
-                          );
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileSetUpScreen()));
+                        onTap: () {
+                          phoneNumberVerify();
                         },
                       ),
                       SizedBox(

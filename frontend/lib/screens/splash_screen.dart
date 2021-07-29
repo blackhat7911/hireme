@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/constants.dart';
+import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/screens/login_screen.dart';
 import 'package:frontend/screens/phone_number.dart';
 import 'package:frontend/widgets/custom_button.dart';

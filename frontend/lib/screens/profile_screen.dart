@@ -5,7 +5,7 @@ import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
 import 'package:image_picker/image_picker.dart';
-import '../constants.dart';
+import '../utils/constants/constants.dart';
 
 class ProfileSetUpScreen extends StatefulWidget {
   const ProfileSetUpScreen({Key? key}) : super(key: key);

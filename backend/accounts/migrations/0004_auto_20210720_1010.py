@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import django.utils.timezone
-import djongo.storage
 
 
 class Migration(migrations.Migration):
@@ -35,6 +34,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='account',
             name='image',
-            field=models.ImageField(default='default.jpg', storage=djongo.storage.GridFSStorage(base_url='myfiles/', collection='myfiles'), upload_to='profile_pics'),
+            field=models.ImageField(default='default.jpg'),
         ),
     ]

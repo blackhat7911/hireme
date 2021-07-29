@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/constants.dart';
+import 'package:frontend/utils/constants/constants.dart';
 
 class MyAppbar extends StatelessWidget {
   const MyAppbar({

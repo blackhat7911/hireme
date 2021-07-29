@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/constants.dart';
+import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/widgets/appbar.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
@@ -19,6 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final String imageUrl =
       "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
   final String fullname = "John Doe";
+  final titleController = new TextEditingController();
+  final location = new TextEditingController();
+  final description = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -87,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 isInvisible: false,
                                 icon: Icons.work,
                                 suffixIcon: null,
+                                controller: titleController,
                               ),
                               SizedBox(
                                 height: 20.0,
@@ -97,17 +101,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 hint: "Location",
                                 isInvisible: true,
                                 icon: Icons.location_on,
+                                controller: location,
                               ),
                               SizedBox(
                                 height: 20.0,
                               ),
                               CustomInputBox(
-                                size: size,
-                                title: "Description",
-                                hint: "Description",
-                                isInvisible: true,
-                                icon: Icons.edit,
-                              ),
+                                  size: size,
+                                  keyboardType: TextInputType.multiline,
+                                  title: "Description",
+                                  hint: "Description",
+                                  isInvisible: true,
+                                  icon: Icons.edit,
+                                  controller: description),
                             ],
                           ),
                         ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/constants.dart';
+import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class PasswordScreen extends StatefulWidget {
+  const PasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _PasswordScreenState createState() => _PasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _PasswordScreenState extends State<PasswordScreen> {
   final password1Controller = new TextEditingController();
   final password2Controller = new TextEditingController();
 
@@ -65,10 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20.0),
             CustomButton(
-                title: "Sign In",
+                title: "Sign Up",
                 textColor: whiteColor,
                 buttonColor: primaryColor,
-                onTap: () {}),
+                onTap: () {},),
           ],
         ),
       ),
