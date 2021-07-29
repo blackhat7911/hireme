@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/routes/routes.dart';
+import 'package:hive/hive.dart';
 
 class MyDrawer extends StatelessWidget {
   final String? fullname, imageUrl;
@@ -51,9 +53,28 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(Icons.work),
             title: Text('Post A Work'),
           ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
+          SizedBox(
+            height: 20,
+          ),
+          GestureDetector(
+            child: Container(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 18,
+                  ),
+                  Icon(Icons.logout),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text('Logout'),
+                ],
+              ),
+            ),
+            onTap: () {
+              Hive.box('login').clear();
+              Navigator.pushNamed(context, loginRoute);
+            },
           ),
         ],
       ),

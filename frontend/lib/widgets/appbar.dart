@@ -5,7 +5,7 @@ class MyAppbar extends StatelessWidget {
   const MyAppbar({
     Key? key,
     required this.size,
-    required this.searchText, 
+    required this.searchText,
     this.imageUrl,
   }) : super(key: key);
 
