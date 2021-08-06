@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(
-        // future: Hive.openBox('login'),
+        future: Hive.openBox('login'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
