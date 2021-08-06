@@ -5,7 +5,7 @@ class MyAppbar extends StatelessWidget {
   const MyAppbar({
     Key? key,
     required this.size,
-    required this.searchText, 
+    required this.searchText,
     this.imageUrl,
   }) : super(key: key);
 
@@ -50,7 +50,7 @@ class MyAppbar extends StatelessWidget {
             width: 5.0,
           ),
           CircleAvatar(
-            backgroundImage: NetworkImage(
+            backgroundImage: AssetImage(
               imageUrl!,
             ),
           ),

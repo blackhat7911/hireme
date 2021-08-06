@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/bloc/login_bloc/login_bloc.dart';
 import 'package:frontend/utils/constants/constants.dart';
-import 'package:frontend/repo/login_repo.dart';
 import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/screens/splash_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';

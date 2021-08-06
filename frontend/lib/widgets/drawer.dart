@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class MyDrawer extends StatelessWidget {
   final String? fullname, imageUrl;
@@ -22,7 +23,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 35,
-                  backgroundImage: NetworkImage(
+                  backgroundImage: AssetImage(
                     imageUrl!,
                   ),
                 ),
@@ -51,9 +52,14 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(Icons.work),
             title: Text('Post A Work'),
           ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
+          GestureDetector(
+            child: ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                Hive.box('login').clear();
+              },
+            ),
           ),
         ],
       ),

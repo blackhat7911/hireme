@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/login_model.dart';
 import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/widgets/appbar.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
 import 'package:frontend/widgets/drawer.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hive/hive.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,11 +16,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final String username;
+  late final String imageUrl;
+  @override
+  void initState() {
+    super.initState();
+    username = Hive.box('login').values.elementAt(0).username;
+    imageUrl = Hive.box('login').values.elementAt(0).imageUrl;
+  }
+
   final searchText = new TextEditingController();
   static const LatLng _center = const LatLng(27.7172, 85.3240);
-  final String imageUrl =
-      "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
-  final String fullname = "John Doe";
+  // final String imageUrl =
+  //     "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
   final titleController = new TextEditingController();
   final location = new TextEditingController();
   final description = new TextEditingController();
@@ -27,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: MyDrawer(
-        fullname: fullname,
+        fullname: username,
         imageUrl: imageUrl,
       ),
       body: SafeArea(
@@ -111,7 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   keyboardType: TextInputType.multiline,
                                   title: "Description",
                                   hint: "Description",
-                                  isInvisible: true,
                                   icon: Icons.edit,
                                   controller: description),
                             ],

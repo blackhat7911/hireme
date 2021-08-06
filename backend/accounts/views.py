@@ -45,7 +45,9 @@ class CustomAuthToken(ObtainAuthToken):
             'username': user.username,
             'email': user.email,
             'phoneNumber': user.account.phoneNumber,
-            'image': user.account.image.url,
+            'userType': user.account.user_type,
+            # 'image': user.account.image.url,
+            'joined': user.account.created_at
         })
 
 

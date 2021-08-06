@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/repo/login_repo.dart';
+import 'package:frontend/data/repo/login_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';

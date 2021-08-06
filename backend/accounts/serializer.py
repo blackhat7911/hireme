@@ -4,21 +4,21 @@ from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model  = User
         fields = ('id', 'username', 'email', 'password')
 
 class CoordinatesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Coordinates
+        model  = Coordinates
         fields = '__all__'
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Location
+        model  = Location
         fields = '__all__'
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Account
+        model  = Account
         fields = '__all__'
-        depth = 2
+        depth  = 2

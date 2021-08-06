@@ -18,7 +18,7 @@ class CustomInputBox extends StatelessWidget {
     this.hint,
     required this.icon,
     this.suffixIcon,
-    this.isInvisible,
+    this.isInvisible = false,
     required this.controller,
     this.error,
     this.title,
@@ -52,7 +52,7 @@ class CustomInputBox extends StatelessWidget {
                 controller: controller,
                 obscureText: isInvisible!,
                 keyboardType: keyboardType,
-                maxLines: keyboardType == TextInputType.multiline ? 4 : 1,
+                maxLines: keyboardType == TextInputType.multiline ? 5 : 1,
                 decoration: InputDecoration(
                   prefixIcon: Icon(icon),
                   suffixIcon: Icon(suffixIcon),
