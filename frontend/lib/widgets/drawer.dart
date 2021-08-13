@@ -23,7 +23,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 35,
-                  backgroundImage: AssetImage(
+                  backgroundImage: NetworkImage(
                     imageUrl!,
                   ),
                 ),

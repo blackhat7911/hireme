@@ -7,5 +7,9 @@ class Login{
   final String? username;
   @HiveField(1)
   final String? imageUrl;
-  Login(this.username, this.imageUrl);
+  @HiveField(2)
+  final String? token;
+  @HiveField(3)
+  final String? id;
+  Login(this.username, this.imageUrl, this.token, this.id);
 }

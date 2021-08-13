@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:frontend/models/login_model.dart';
 import 'package:frontend/utils/constants/api_constants.dart';
 import 'package:hive/hive.dart';
@@ -12,7 +14,12 @@ class LoginRepository {
       var response = await http
           .post(apiUri, body: {"username": username, "password": password});
       if (response.statusCode == 200) {
-        addUser(login: Login(username, "assets/images/user.png"));
+        Map result = jsonDecode(response.body);
+        var usertoken = result["token"];
+        var name = result["username"];
+        var imageuri = result["image"];
+        var userid = result["userId"];
+        saveUser(Login(name, imageuri, usertoken, userid));
         return true;
       } else {
         return Future.error("Invalid Username or password");
@@ -22,8 +29,7 @@ class LoginRepository {
     }
   }
 
-  void addUser({required Login login}) {
-    var box = Hive.box('login');
-    box.add(login);
+  Future<void> saveUser(Login login) async {
+    Hive.box('login').add(login);
   }
 }

@@ -50,8 +50,8 @@ class CustomInputBox extends StatelessWidget {
               ),
               child: TextFormField(
                 controller: controller,
-                obscureText: isInvisible!,
                 keyboardType: keyboardType,
+                obscureText: isInvisible!,
                 maxLines: keyboardType == TextInputType.multiline ? 5 : 1,
                 decoration: InputDecoration(
                   prefixIcon: Icon(icon),

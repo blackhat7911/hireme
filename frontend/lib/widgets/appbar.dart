@@ -50,7 +50,7 @@ class MyAppbar extends StatelessWidget {
             width: 5.0,
           ),
           CircleAvatar(
-            backgroundImage: AssetImage(
+            backgroundImage: NetworkImage(
               imageUrl!,
             ),
           ),

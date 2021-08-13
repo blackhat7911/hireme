@@ -19,18 +19,24 @@ class LoginAdapter extends TypeAdapter<Login> {
     return Login(
       fields[0] as String?,
       fields[1] as String?,
+      fields[2] as String?,
+      fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Login obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.username)
       ..writeByte(1)
       ..write(obj.imageUrl)
-      ..writeByte(2);
+      ..writeByte(2)
+      ..write(obj.token)
+      ..writeByte(3)
+      ..write(obj.id)
+      ..writeByte(4);
   }
 
   @override

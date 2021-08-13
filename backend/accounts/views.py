@@ -13,10 +13,10 @@ class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny,)
 
-    def perform_create(self, serializer):
-        new_user = User.objects.create(username=self.request.data.get('username'))
-        new_user.set_password(self.request.data.get('password'))
-        serializer.save(password=user.password)
+    # def perform_create(self, serializer):
+    #     new_user = User.objects.create(username=self.request.data.get('username'))
+    #     new_user.set_password(self.request.data.get('password'))
+    #     serializer.save(password=new_user.password)
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -41,12 +41,13 @@ class CustomAuthToken(ObtainAuthToken):
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         return Response({
+            'userId': user.pk,
             'token': token.key,
             'username': user.username,
             'email': user.email,
             'phoneNumber': user.account.phoneNumber,
             'userType': user.account.user_type,
-            # 'image': user.account.image.url,
+            'image': user.account.image.url,
             'joined': user.account.created_at
         })
 

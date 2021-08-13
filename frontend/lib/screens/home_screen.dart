@@ -16,19 +16,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final String username;
-  late final String imageUrl;
+  final String username = "Bishal";
+  final String imageUrl =
+      "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
   @override
   void initState() {
     super.initState();
-    username = Hive.box('login').values.elementAt(0).username;
-    imageUrl = Hive.box('login').values.elementAt(0).imageUrl;
+    // username = Hive.box('login').values.elementAt(0).username;
+    // imageUrl = Hive.box('login').values.elementAt(0).imageUrl;
   }
 
   final searchText = new TextEditingController();
   static const LatLng _center = const LatLng(27.7172, 85.3240);
-  // final String imageUrl =
-  //     "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
   final titleController = new TextEditingController();
   final location = new TextEditingController();
   final description = new TextEditingController();
