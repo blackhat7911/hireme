@@ -9,7 +9,9 @@ class RegisterInitial extends RegisterBlocState {}
 
 class RegisterLoading extends RegisterBlocState {}
 
-class RegisterSuccess extends RegisterBlocState {}
+class RegisterSuccess extends RegisterBlocState {
+  
+}
 
 class RegisterFailed extends RegisterBlocState {
   final String message;

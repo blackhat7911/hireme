@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/routes/routes.dart';
-import 'package:frontend/screens/login_screen.dart';
+import 'package:frontend/screens/auth_screens/login_screen.dart';
 import 'package:frontend/screens/splash_screen.dart';
 
 class CustomRouter {

@@ -30,7 +30,7 @@ class RegisterBlocBloc extends Bloc<RegisterBlocEvent, RegisterBlocState> {
       yield RegisterLoading();
       RegisterRepository _loginRepo = new RegisterRepository();
       bool status = await _loginRepo.userRegister(username, email, password);
-      if (status) {
+      if (status==true) {
         yield RegisterSuccess();
       } else {
         yield RegisterFailed(message: "Couldnot register user");

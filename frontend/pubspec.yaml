@@ -34,6 +34,8 @@ dependencies:
       url: https://github.com/Realank/flutter_datetime_picker.git
       ref: master
   intl_phone_number_input: ^0.7.0+2
+  
+  flutter_snake_navigationbar: ^0.5.0
   otp_text_field: ^1.1.1
   flutter_bloc: ^7.0.1
   bloc: ^7.0.0

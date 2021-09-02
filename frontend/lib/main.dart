@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/login_model.dart';
 import 'package:frontend/routes/router.dart';
 import 'package:frontend/routes/routes.dart';
-import 'package:frontend/screens/home_screen.dart';
+import 'package:frontend/screens/seeker%20screen/home_screen.dart';
 import 'package:frontend/screens/splash_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;

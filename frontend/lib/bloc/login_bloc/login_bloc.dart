@@ -26,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoading();
       LoginRepository _loginRepo = new LoginRepository();
       bool status = await _loginRepo.userLogin(email, password);
-      if (status) {
+      if (status == true) {
         yield LoginSuccess();
       } else {
         yield LoginFailed(message: "Invalid Username or password");

@@ -20,6 +20,7 @@ class LoginRepository {
         var imageuri = result["image"];
         var userid = result["userId"];
         saveUser(Login(name, imageuri, usertoken, userid));
+        print("true");
         return true;
       } else {
         return Future.error("Invalid Username or password");
@@ -31,5 +32,6 @@ class LoginRepository {
 
   Future<void> saveUser(Login login) async {
     Hive.box('login').add(login);
+    print(login);
   }
 }
