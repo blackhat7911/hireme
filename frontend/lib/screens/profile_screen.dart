@@ -39,8 +39,8 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
           icon: Icon(Icons.arrow_back_ios),
           color: blackColor,
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.pop(
+                context);
           },
         ),
         centerTitle: true,

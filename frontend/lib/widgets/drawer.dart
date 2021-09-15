@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/seeker%20screen/home_screen.dart';
+import 'package:frontend/screens/seeker%20screen/profile_screen.dart';
 import 'package:hive/hive.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -43,14 +45,20 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
+            },
           ),
           ListTile(
             leading: Icon(Icons.person),
             title: Text('Profile'),
-          ),
-          ListTile(
-            leading: Icon(Icons.work),
-            title: Text('Post A Work'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SeekerProfileScreen()));
+            },
           ),
           GestureDetector(
             child: ListTile(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/bloc/register_bloc/register_bloc_bloc.dart';
 import 'package:frontend/screens/profile_screen.dart';
-import 'package:frontend/screens/splash_screen.dart';
 import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
@@ -30,8 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             icon: Icon(Icons.arrow_back_ios),
             color: blackColor,
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SplashScreen()));
+              Navigator.pop(context);
             },
           ),
           backgroundColor: whiteColor,
@@ -109,11 +107,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: Colors.grey,
                       ));
                     } else {
-                      // BlocProvider.of<RegisterBlocBloc>(context)
-                      //   ..add(RegisterBeginEvent(
-                      //       username: usernameController.text,
-                      //       email: emailController.text,
-                      //       password: password1Controller.text));
+                      BlocProvider.of<RegisterBlocBloc>(context)
+                        ..add(RegisterBeginEvent(
+                            username: usernameController.text,
+                            email: emailController.text,
+                            password: password1Controller.text));
                       Navigator.push(
                           context,
                           MaterialPageRoute(

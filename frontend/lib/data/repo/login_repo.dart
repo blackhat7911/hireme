@@ -8,26 +8,13 @@ import 'package:http/http.dart' as http;
 class LoginRepository {
   final String apiUrl = ApiConstants.baseUrl + ApiConstants.loginUrl;
 
-  Future<bool> userLogin(String username, String password) async {
-    try {
-      Uri apiUri = Uri.parse(apiUrl);
-      var response = await http
-          .post(apiUri, body: {"username": username, "password": password});
-      if (response.statusCode == 200) {
-        Map result = jsonDecode(response.body);
-        var usertoken = result["token"];
-        var name = result["username"];
-        var imageuri = result["image"];
-        var userid = result["userId"];
-        saveUser(Login(name, imageuri, usertoken, userid));
-        print("true");
-        return true;
-      } else {
-        return Future.error("Invalid Username or password");
-      }
-    } catch (e) {
-      return Future.error("Invalid Username or password");
-    }
+  Future userLogin(String username, String password) async {
+    Uri apiUri = Uri.parse("https://192.168.1.65:8000/user/login/");
+    var response = await http
+        .post(apiUri, body: {"username": username, "password": password});
+    var result = json.decode(response.body);
+
+    print(result);
   }
 
   Future<void> saveUser(Login login) async {

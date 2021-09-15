@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/models/login_model.dart';
 import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/widgets/appbar.dart';
-import 'package:frontend/widgets/custom_button.dart';
-import 'package:frontend/widgets/custom_input_box.dart';
 import 'package:frontend/widgets/drawer.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hive/hive.dart';
+import 'package:geocoding/geocoding.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,129 +17,191 @@ class _HomeScreenState extends State<HomeScreen> {
   final String username = "Bishal";
   final String imageUrl =
       "https://images.pexels.com/photos/7120688/pexels-photo-7120688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+
+  final searchText = new TextEditingController();
+  LatLng _center = LatLng(27.7172, 85.3240);
+  String location = "";
+
+  List<LatLng> _centers = [
+    LatLng(27.7172, 85.3240),
+    LatLng(39.9075, 116.39723),
+    LatLng(27.7190, 85.3260),
+    LatLng(27.7199, 85.3270),
+    LatLng(27.7162, 85.3280),
+  ];
+
+  bool isPermissionGranted = false;
+
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    // Test if location services are enabled.
+    print(Future.error('Location services are disabled.'));
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      print(Future.error('Location services are disabled.'));
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print(Future.error('Location permissions are denied'));
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      print(Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.'));
+    }
+
+    setState(() {
+      isPermissionGranted = true;
+    });
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  Future<void> getAddressFromLatLong(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemarks);
+    Placemark place = placemarks[0];
+    location =
+        '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
-    // username = Hive.box('login').values.elementAt(0).username;
-    // imageUrl = Hive.box('login').values.elementAt(0).imageUrl;
+    this._getCurrentLocation();
   }
 
-  final searchText = new TextEditingController();
-  static const LatLng _center = const LatLng(27.7172, 85.3240);
-  final titleController = new TextEditingController();
-  final location = new TextEditingController();
-  final description = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       drawer: MyDrawer(
         fullname: username,
         imageUrl: imageUrl,
       ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 11.5,
-              ),
-              mapType: MapType.hybrid,
-              zoomControlsEnabled: false,
-              myLocationEnabled: true,
-              compassEnabled: false,
-            ),
-            MyAppbar(
-              size: size,
-              searchText: searchText,
-              imageUrl: imageUrl,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          color: whiteColor,
-        ),
-        backgroundColor: primaryColor,
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: SingleChildScrollView(
-                  child: Container(
-                    width: size.width * 0.8,
-                    height: size.height * 0.8,
-                    color: whiteColor,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Post Work",
-                          style: TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                              color: primaryColor),
+        child: isPermissionGranted == false
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Stack(
+                children: [
+                  GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: _center,
+                        zoom: 11.5,
+                      ),
+                      mapType: MapType.hybrid,
+                      zoomControlsEnabled: false,
+                      myLocationEnabled: false,
+                      compassEnabled: false,
+                      markers: {
+                        Marker(
+                          markerId: MarkerId("1"),
+                          position: _center,
                         ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              CustomInputBox(
-                                size: size,
-                                title: "Title",
-                                hint: "Title",
-                                isInvisible: false,
-                                icon: Icons.work,
-                                suffixIcon: null,
-                                controller: titleController,
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              CustomInputBox(
-                                size: size,
-                                title: "Location",
-                                hint: "Location",
-                                isInvisible: true,
-                                icon: Icons.location_on,
-                                controller: location,
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              CustomInputBox(
-                                  size: size,
-                                  keyboardType: TextInputType.multiline,
-                                  title: "Description",
-                                  hint: "Description",
-                                  icon: Icons.edit,
-                                  controller: description),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 20.0),
-                        CustomButton(
-                          title: "Post",
-                          textColor: whiteColor,
-                          buttonColor: primaryColor,
-                          onTap: () {
-                            print('posted');
-                          },
-                        ),
-                      ],
+                      }),
+                  Positioned(
+                    top: 10,
+                    child: MyAppbar(
+                      size: size,
+                      searchText: searchText,
+                      imageUrl: imageUrl,
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        },
+                  Positioned(
+                    left: 10,
+                    bottom: 20,
+                    right: 0,
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                _center = _centers[index];
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        "https://images.unsplash.com/photo-1630943952377-8245275a4781?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzNXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                                      ),
+                                    ),
+                                  ),
+                                  margin: EdgeInsets.only(right: 10),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "John Dore",
+                                          style: TextStyle(
+                                            color: whiteColor,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "Plumber",
+                                          style: TextStyle(
+                                            color: whiteColor,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "Kritipur",
+                                          style: TextStyle(
+                                            color: whiteColor,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }
