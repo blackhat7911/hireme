@@ -1,7 +1,8 @@
-class User{
-  final String? username, password;
+class User {
+  final int id;
+  final String username, email;
   User({
-    this.username,
-    this.password
-  });
+    required this.id, 
+    required this.username, 
+    required this.email});
 }

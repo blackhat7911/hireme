@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/seeker%20screen/home_screen.dart';
 import 'package:frontend/screens/seeker%20screen/profile_screen.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -46,8 +47,7 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
+              Get.back();
             },
           ),
           ListTile(
@@ -66,6 +66,7 @@ class MyDrawer extends StatelessWidget {
               title: Text('Logout'),
               onTap: () {
                 Hive.box('login').clear();
+                Get.back();
               },
             ),
           ),

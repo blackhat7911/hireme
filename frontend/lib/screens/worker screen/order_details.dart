@@ -51,7 +51,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               SizedBox(height: 20),
               Row(
                 children: [
-                  CircleAvatar(),
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydHJhaXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    ),
+                  ),
                   SizedBox(width: 20),
                   Text(
                     "Username",
@@ -86,6 +90,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       child: Row(
                         children: [
                           Icon(Icons.location_on),
+                          SizedBox(width: 5),
                           Text("Kathmandu"),
                         ],
                       ),
@@ -97,6 +102,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       child: Row(
                         children: [
                           Icon(Icons.calendar_today),
+                          SizedBox(width: 5),
                           Text("24th Aug 2021"),
                         ],
                       ),
@@ -104,6 +110,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: 20),
               Text(
                 "Description",
                 style: TextStyle(
@@ -112,7 +119,46 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 ),
               ),
               SizedBox(height: 10),
-              Text(""),
+              Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      color: Colors.green.withOpacity(0.7),
+                      alignment: Alignment.center,
+                      child: Row(
+                        children: [
+                          Icon(Icons.check),
+                          SizedBox(width: 5),
+                          Text("Accept"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      color: Colors.red.withOpacity(0.7),
+                      alignment: Alignment.center,
+                      child: Row(
+                        children: [
+                          Icon(Icons.close),
+                          SizedBox(width: 5),
+                          Text("Cancel"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

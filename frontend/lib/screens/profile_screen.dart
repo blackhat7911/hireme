@@ -4,6 +4,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:frontend/screens/seeker%20screen/home_screen.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../utils/constants/constants.dart';
 
@@ -22,6 +23,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
   final addressController = new TextEditingController();
   final dateController = new TextEditingController();
   final occupationController = new TextEditingController();
+  String dropdownValue = 'Seeker';
 
   Future pickPhoto(ImageSource source) async {
     final _pickImage = await _imagePicker.pickImage(source: source);
@@ -39,8 +41,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
           icon: Icon(Icons.arrow_back_ios),
           color: blackColor,
           onPressed: () {
-            Navigator.pop(
-                context);
+            Get.back();
           },
         ),
         centerTitle: true,
@@ -219,7 +220,11 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                           onChanged: (date) {
                             print('change $date');
                           },
-                          onConfirm: (date) {},
+                          onConfirm: (date) {
+                            setState(() {
+                              dateController.text = date.toString();
+                            });
+                          },
                           currentTime: DateTime.now(),
                         );
                       },
@@ -256,14 +261,48 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
               controller: occupationController,
             ),
             SizedBox(height: 20.0),
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Account Type",
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  DropdownButton<String>(
+                    isExpanded: true,
+                    value: dropdownValue,
+                    iconSize: 24,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.black),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                    items: <String>['Seeker', 'Worker']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
             CustomButton(
               title: "Save and Continue",
               textColor: whiteColor,
               buttonColor: primaryColor,
               onTap: () {
                 // loginUser(usernameController.text, passwordController.text);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                Get.to(() => HomeScreen(
+                      username: '',
+                      imageUrl: '',
+                      id: 1,
+                    ));
               },
             ),
           ],

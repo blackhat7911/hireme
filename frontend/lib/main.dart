@@ -5,6 +5,7 @@ import 'package:frontend/routes/router.dart';
 import 'package:frontend/routes/routes.dart';
 import 'package:frontend/screens/seeker%20screen/home_screen.dart';
 import 'package:frontend/screens/splash_screen.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
@@ -36,24 +37,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: splashRoute,
       onGenerateRoute: CustomRouter.generatedRoute,
-      home: FutureBuilder(
-        future: Hive.openBox('login'),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            } else {
-              return HomeScreen();
-            }
-          } else {
-            return SplashScreen();
-          }
-        },
-      ),
+      // home: FutureBuilder(
+      //   future: Hive.openBox('login'),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.done) {
+      //       if (snapshot.hasError) {
+      //         return Text(snapshot.error.toString());
+      //       } else {
+      //         return HomeScreen();
+      //       }
+      //     } else {
+      home: SplashScreen(),
+      //     }
+      //   },
+      // ),
     );
   }
 }

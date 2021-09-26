@@ -12,14 +12,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(
     HomeEvent event,
   ) async* {
-    if (event is HomeBeginEvent) {}
+    if (event is HomeBeginEvent) {
+      yield* getWorkerList();
+    }
   }
 
   Stream<HomeState> getWorkerList() async* {
     try {
       yield WorkerLoading();
       HomeRepository _homeRepo = new HomeRepository();
-      _homeRepo.getWorker();
+      _homeRepo.getWorkerList();
     } catch (e) {
       yield WorkerLoadFailed(message: e.toString());
     }

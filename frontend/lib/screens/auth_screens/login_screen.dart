@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/data/repo/login_repo.dart';
+import 'package:frontend/screens/seeker%20screen/home_screen.dart';
 import 'package:frontend/utils/constants/constants.dart';
+import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -29,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
           icon: Icon(Icons.arrow_back_ios),
           color: blackColor,
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
         ),
         backgroundColor: whiteColor,
@@ -91,16 +94,15 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 20.0),
-            MaterialButton(
-              child: Text("Sign In"),
+            CustomButton(
+              title: "Signin",
               textColor: whiteColor,
-              // buttonColor: primaryColor,
-              onPressed: ()  {
+              buttonColor: primaryColor,
+              onTap: () {
                 if (usernameController.text.isNotEmpty ||
                     passwordController.text.isNotEmpty) {
-                   loginRepository.userLogin(
+                  loginRepository.userLogin(
                       usernameController.text, passwordController.text);
-                  print("btn clickrd");
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("Please enter a username and password"),

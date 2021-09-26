@@ -20,7 +20,6 @@ class LoginAdapter extends TypeAdapter<Login> {
       fields[0] as String?,
       fields[1] as String?,
       fields[2] as String?,
-      fields[3] as String?,
     );
   }
 
@@ -31,12 +30,10 @@ class LoginAdapter extends TypeAdapter<Login> {
       ..writeByte(0)
       ..write(obj.username)
       ..writeByte(1)
-      ..write(obj.imageUrl)
+      ..write(obj.email)
       ..writeByte(2)
-      ..write(obj.token)
-      ..writeByte(3)
       ..write(obj.id)
-      ..writeByte(4);
+      ..writeByte(3);
   }
 
   @override

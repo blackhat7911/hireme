@@ -1,16 +1,20 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:frontend/utils/constants/api_constants.dart';
 
 class HomeRepository {
   final String workerListApi = ApiConstants.baseUrl + ApiConstants.workerList;
 
-  Future<void> getWorker() async {
+  Future getWorkerList() async {
     try {
-      final response =
-          await Dio().get(ApiConstants.baseUrl + ApiConstants.workerList);
-      print(response);
+      var uri = Uri.parse(workerListApi);
+      var response = await http.get(uri);
+      var result = json.decode(response.body);
+      print(result);
+      return result;
     } catch (e) {
-      print(e);
+      return Future.error(e);
     }
   }
 }
