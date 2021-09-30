@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/bloc/home_bloc/bloc/home_bloc.dart';
 import 'package:frontend/bloc/login_bloc/login_bloc.dart';
 import 'package:frontend/bloc/register_bloc/register_bloc_bloc.dart';
 import 'package:frontend/screens/auth_screens/register_screen.dart';
@@ -22,7 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LoginBloc()),
-BlocProvider(create: (context) => RegisterBlocBloc())
+BlocProvider(create: (context) => RegisterBlocBloc()),
+BlocProvider(create: (context) => HomeBloc()),
       ],
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {

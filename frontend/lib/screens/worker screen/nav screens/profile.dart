@@ -2,9 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:frontend/utils/constants/constants.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/page_header.dart';
+import 'package:get/get.dart';
 
 class ProfileNavScreen extends StatefulWidget {
-  const ProfileNavScreen({Key? key}) : super(key: key);
+  final String imageUrl;
+  final String phone;
+  final String location;
+  final String username;
+  final int id;
+  const ProfileNavScreen({
+    Key? key,
+    required this.imageUrl,
+    required this.phone,
+    required this.location,
+    required this.username,
+    required this.id,
+  }) : super(key: key);
 
   @override
   _ProfileNavScreenState createState() => _ProfileNavScreenState();
@@ -50,12 +63,12 @@ class _ProfileNavScreenState extends State<ProfileNavScreen> {
                     CircleAvatar(
                       radius: 60,
                       backgroundImage: NetworkImage(
-                        imageUrl,
+                        widget.imageUrl,
                       ),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      "John Doe",
+                      widget.username,
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w500,
@@ -96,12 +109,12 @@ class _ProfileNavScreenState extends State<ProfileNavScreen> {
                           ListTile(
                             leading: Icon(Icons.phone),
                             title: Text("Contact"),
-                            trailing: Text("+9779860330722"),
+                            trailing: Text(widget.phone),
                           ),
                           ListTile(
                             leading: Icon(Icons.location_on),
                             title: Text("Location"),
-                            trailing: Text("Kathmandu, Nepal"),
+                            trailing: Text(widget.location),
                           ),
                         ],
                       ),
@@ -112,7 +125,9 @@ class _ProfileNavScreenState extends State<ProfileNavScreen> {
               SizedBox(height: 30),
               CustomButton(
                 buttonColor: primaryColor,
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                },
                 textColor: whiteColor,
                 title: "Logout",
                 width: size.width * 0.9,

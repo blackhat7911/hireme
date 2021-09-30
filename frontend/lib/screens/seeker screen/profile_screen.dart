@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/constants/constants.dart';
-import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/page_header.dart';
+import 'package:get/get.dart';
 
 class SeekerProfileScreen extends StatefulWidget {
-  const SeekerProfileScreen({Key? key}) : super(key: key);
+  final String imageUrl;
+  final String phone;
+  final String location;
+  final String username;
+  final int id;
+  const SeekerProfileScreen({
+    Key? key,
+    required this.imageUrl,
+    required this.phone,
+    required this.location,
+    required this.username,
+    required this.id,
+  }) : super(key: key);
 
   @override
   _SeekerProfileScreenState createState() => _SeekerProfileScreenState();
@@ -40,7 +51,16 @@ class _SeekerProfileScreenState extends State<SeekerProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PageHeader(title: "Profile"),
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(Icons.arrow_back_ios)),
+                  PageHeader(title: "Profile"),
+                ],
+              ),
               SizedBox(height: 40),
               Container(
                 width: size.width,
@@ -50,12 +70,12 @@ class _SeekerProfileScreenState extends State<SeekerProfileScreen> {
                     CircleAvatar(
                       radius: 60,
                       backgroundImage: NetworkImage(
-                        imageUrl,
+                        widget.imageUrl,
                       ),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      "John Doe",
+                      widget.username,
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w500,
@@ -96,26 +116,18 @@ class _SeekerProfileScreenState extends State<SeekerProfileScreen> {
                           ListTile(
                             leading: Icon(Icons.phone),
                             title: Text("Contact"),
-                            trailing: Text("+9779860330722"),
+                            trailing: Text(widget.phone),
                           ),
                           ListTile(
                             leading: Icon(Icons.location_on),
                             title: Text("Location"),
-                            trailing: Text("Kathmandu, Nepal"),
+                            trailing: Text(widget.location),
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 30),
-              CustomButton(
-                buttonColor: primaryColor,
-                onTap: () {},
-                textColor: whiteColor,
-                title: "Logout",
-                width: size.width * 0.9,
               ),
             ],
           ),

@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String baseUrl = "http://192.168.1.65:8000";
+  static const String baseUrl = "https://2b9f-110-44-114-6.ngrok.io";
   // "https://hiremebackend.herokuapp.com";
   static const String loginUrl = "/user/login/";
   static const String registerUrl = "/user/register/";

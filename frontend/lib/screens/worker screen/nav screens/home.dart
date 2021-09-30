@@ -26,7 +26,7 @@ class _SeekerNavHomeState extends State<SeekerNavHome> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PageHeader(
-                  title: "Orders",
+                  title: "Requests",
                 ),
                 SizedBox(
                   height: 20,
@@ -34,9 +34,8 @@ class _SeekerNavHomeState extends State<SeekerNavHome> {
                 OrderCard(
                   size: size,
                   date: '12th Aug, 2021',
-                  description:
-                      'lLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...',
-                  title: 'Plumber required for pipe repair',
+                  description: 'Your new work request',
+                  title: 'Plumber',
                   location: 'Kathmandu, Nepal',
                   // onTap: () {
                   //   Navigator.push(

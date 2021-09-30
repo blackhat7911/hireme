@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/constants/api_constants.dart';
 import 'package:frontend/utils/constants/constants.dart';
+import 'package:get/get.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   const OrderDetailsScreen({Key? key}) : super(key: key);
@@ -18,7 +20,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         backgroundColor: whiteColor,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
           icon: Icon(
             Icons.arrow_back_ios,
             color: blackColor,
@@ -42,7 +46,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Order Title",
+                "Plumber Need",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
@@ -53,12 +57,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydHJhaXR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                      ApiConstants.baseUrl +
+                          "/static/avtar/IMG_20210824_130646_UusYJpL.jpg",
                     ),
                   ),
                   SizedBox(width: 20),
                   Text(
-                    "Username",
+                    "bishalrana",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -103,7 +108,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         children: [
                           Icon(Icons.calendar_today),
                           SizedBox(width: 5),
-                          Text("24th Aug 2021"),
+                          Text("30th September 2021"),
                         ],
                       ),
                     ),
@@ -126,17 +131,20 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      color: Colors.green.withOpacity(0.7),
-                      alignment: Alignment.center,
-                      child: Row(
-                        children: [
-                          Icon(Icons.check),
-                          SizedBox(width: 5),
-                          Text("Accept"),
-                        ],
+                    child: InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        color: Colors.green.withOpacity(0.7),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: [
+                            Icon(Icons.check),
+                            SizedBox(width: 5),
+                            Text("Accept"),
+                          ],
+                        ),
                       ),
                     ),
                   ),

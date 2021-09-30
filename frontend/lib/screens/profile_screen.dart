@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:frontend/screens/seeker%20screen/home_screen.dart';
+import 'package:frontend/screens/worker%20screen/home_screen.dart';
+import 'package:frontend/utils/constants/api_constants.dart';
 import 'package:frontend/widgets/custom_button.dart';
 import 'package:frontend/widgets/custom_input_box.dart';
 import 'package:get/get.dart';
@@ -9,7 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import '../utils/constants/constants.dart';
 
 class ProfileSetUpScreen extends StatefulWidget {
-  const ProfileSetUpScreen({Key? key}) : super(key: key);
+  final String username;
+  const ProfileSetUpScreen({Key? key, required this.username})
+      : super(key: key);
 
   @override
   _ProfileSetUpScreenState createState() => _ProfileSetUpScreenState();
@@ -22,8 +26,9 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
   final fullnameController = new TextEditingController();
   final addressController = new TextEditingController();
   final dateController = new TextEditingController();
+  final phoneController = new TextEditingController();
   final occupationController = new TextEditingController();
-  String dropdownValue = 'Seeker';
+  String dropdownValue = 'SEEKER';
 
   Future pickPhoto(ImageSource source) async {
     final _pickImage = await _imagePicker.pickImage(source: source);
@@ -253,6 +258,18 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             ),
             CustomInputBox(
               size: size,
+              title: "Phone",
+              hint: "Phone",
+              isInvisible: false,
+              icon: Icons.phone,
+              suffixIcon: null,
+              controller: phoneController,
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            CustomInputBox(
+              size: size,
               title: "Occupation",
               hint: "Occupation",
               isInvisible: false,
@@ -280,7 +297,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                         dropdownValue = newValue!;
                       });
                     },
-                    items: <String>['Seeker', 'Worker']
+                    items: <String>['SEEKER', 'WORKER']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -298,11 +315,25 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
               buttonColor: primaryColor,
               onTap: () {
                 // loginUser(usernameController.text, passwordController.text);
-                Get.to(() => HomeScreen(
-                      username: '',
-                      imageUrl: '',
-                      id: 1,
-                    ));
+                if (dropdownValue == 'SEEKER') {
+                  Get.to(() => HomeScreen(
+                        username: "",
+                        imageUrl: ApiConstants.baseUrl +
+                            '/' +
+                            "static/avtar/IMG_20210824_130646_UusYJpL.jpg",
+                        location: addressController.text,
+                        phone: phoneController.text,
+                      ));
+                } else {
+                  Get.to(() => WorkerHome(
+                      imageUrl: ApiConstants.baseUrl +
+                          '/' +
+                          "static/avtar/IMG_20210824_130646_UusYJpL.jpg",
+                      phone: phoneController.text,
+                      location: addressController.text,
+                      username: "username",
+                      id: 1));
+                }
               },
             ),
           ],

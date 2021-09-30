@@ -12,7 +12,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(
     HomeEvent event,
   ) async* {
-    if (event is HomeBeginEvent) {
+    if (event is WorkerListLoadEvent) {
       yield* getWorkerList();
     }
   }

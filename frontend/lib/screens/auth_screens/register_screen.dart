@@ -111,6 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: Colors.grey,
                       ));
                     } else {
+                      print("btb cldi");
                       _registerRepository.userRegister(usernameController.text,
                           emailController.text, password1Controller.text);
                     }
